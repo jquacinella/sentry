@@ -4,7 +4,7 @@ from sentry.conf.server import *
 import os
 
 CONF_ROOT = os.path.dirname(__file__)
-TIME_ZONE = 'Europe/Oslo'
+TIME_ZONE = 'UTC'
 
 # Remeber to set the SECRET_KEY environment variable when putting this into
 # production so no one can spoofe your sessions. Changing this will cause your
@@ -63,3 +63,5 @@ SENTRY_WEB_OPTIONS = {
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 USE_X_FORWARDED_HOST = True
 
+SENTRY_CACHE='sentry.cache.redis.RedisCache'
+SENTRY_URL_PREFIX='localhost'

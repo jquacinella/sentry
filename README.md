@@ -11,15 +11,6 @@ This is a production ready setup of
 * [Docker](https://github.com/docker/docker) >= `v1.3`
 * [Docker Compose](https://github.com/docker/fig) >= `v1.1.0-rc2`
 
-## How do I start this thing?
-
-```
-docker-compose up
-```
-
-
-
-
 
 ## Configuration
 
@@ -33,7 +24,13 @@ for sentry. Fill in email config knobs in config.yml, and update SENTRY_URL_PREF
 
 ## Installation
 
-First, run migrations to get the database up and running. This will also ask you to create a user; at this point, create one user that has admin privileges.
+First, lets bring up the stack via compose:
+
+```
+docker-compose up
+```
+
+After that, run SQL migrations to get the database up and running. This will also ask you to create a user; at this point, create one user that has admin privileges.
 
 ```
 sudo docker-compose run www upgrade
@@ -44,7 +41,6 @@ If you later want to add more users or didn't did it the first time around, run:
 ```
 docker-compose run www createuser
 ```
-
 
 
 

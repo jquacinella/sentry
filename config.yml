@@ -1,0 +1,6 @@
+mail.from: 'sentry@localhost'
+mail.host: 'localhost'
+mail.port: 25
+mail.username: ''
+mail.password: ''
+mail.use-tls: false

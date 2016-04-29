@@ -41,7 +41,7 @@ docker-compose up -d
 After that, run SQL migrations to get the database up and running. This will also ask you to create a user; at this point, create one user that has admin privileges.
 
 ```
-sudo docker-compose run www upgrade
+sudo docker-compose run sentry upgrade
 ```
 
 If you later want to add more users or didn't did it the first time around, run:

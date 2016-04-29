@@ -1,0 +1,34 @@
+version: '2'
+services:
+  data:
+    # Need to be defined for sentry; choose which ever 
+    # local dir you want to keep the data directories
+    volumes:
+      - ./data/:/data
+      - ./db_data/:/var/lib/postgresql/data
+    networks:
+      - local
+
+  redis:
+    networks:
+      - local
+
+  postgres:
+    networks:
+      - local
+
+  sentry:
+    networks:
+      - local
+
+  sentry_celery_beat:
+    networks:
+      - local
+
+  sentry_celery_worker:
+    networks:
+      - local
+
+networks:
+    local:
+        external: true

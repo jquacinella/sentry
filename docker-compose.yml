@@ -4,9 +4,9 @@ services:
     container_name: sentry-data
     hostname: sentry-data
     image: busybox:latest
-    volumes:
-      - ./data/:/data
-      - ./db_data/:/var/lib/postgresql/data
+    # volumes:
+    #   - ./data/:/data
+    #   - ./db_data/:/var/lib/postgresql/data
     entrypoint: /bin/echo
 
   redis:

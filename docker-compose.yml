@@ -20,9 +20,10 @@ services:
       - data
     restart: always
 
-  www:
-    # build: .
-    image: senrty_image
+  sentry:
+    container_name: sentry
+    hostname: sentry
+    image: sentry_image
     ports:
       - "8080:8080"
     links:
@@ -43,8 +44,9 @@ services:
     # restart: always
 
   sentry_celery_beat:
-    # build: .
-    image: senrty_image
+    container_name: sentry_celery_beat
+    hostname: sentry_celery_beat
+    image: sentry_image
     links:
      - redis
      - postgres
@@ -57,8 +59,9 @@ services:
       - redis
 
   sentry_celery_worker:
-    # build: .
-    image: senrty_image
+    container_name: sentry_celery_worker
+    hostname: sentry_celery_worker
+    image: sentry_image
     links:
      - redis
      - postgres

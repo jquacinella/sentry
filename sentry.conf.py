@@ -64,5 +64,5 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 USE_X_FORWARDED_HOST = True
 
 SENTRY_CACHE='sentry.cache.redis.RedisCache'
-SENTRY_URL_PREFIX='localhost:8080'
+SENTRY_URL_PREFIX='localhost:8080/'
 BROKER_URL = "redis://redis:6379/1"

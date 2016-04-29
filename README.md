@@ -24,10 +24,10 @@ for sentry. Fill in email config knobs in config.yml, and update SENTRY_URL_PREF
 
 ## Building
 
-The compose file relies on an image named `senrty_image`, and to build it, run:
+The compose file relies on an image named `sentry_image`, and to build it, run:
 
 ```
-sudo docker build --rm=true -t senrty_image ./
+sudo docker build --rm=true -t sentry_image ./
 ```
 
 
@@ -51,6 +51,18 @@ If you later want to add more users or didn't did it the first time around, run:
 docker-compose run www createuser
 ```
 
+
+## Troubleshooting
+
+To see logs, you can run:
+
+```
+sudo docker-compose logs -f sentry
+sudo docker-compose logs -f sentry_celery_beat
+sudo docker-compose logs -f sentry_celery_worker
+```
+
+to see the logs of the varous sentry components.
 
 
 ## TODO

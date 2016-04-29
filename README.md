@@ -35,19 +35,22 @@ sudo docker build --rm=true -t sentry_image ./
 First, lets bring up the stack via compose:
 
 ```
-docker-compose up -d
+cp docker-compose.template.yml docker-compose.custom.yml
+vi docker-compose.custom.yml
+# Chnage network name and details, as well as the host directories for volumes
+docker-compose -f docker-compose.yml -f docker-compose.custom.yml up -d
 ```
 
 After that, run SQL migrations to get the database up and running. This will also ask you to create a user; at this point, create one user that has admin privileges.
 
 ```
-sudo docker-compose run sentry upgrade
+docker-compose -f docker-compose.yml -f docker-compose.custom.yml run sentry upgrade
 ```
 
 If you later want to add more users or didn't did it the first time around, run:
 
 ```
-docker-compose run www createuser
+docker-compose -f docker-compose.yml -f docker-compose.custom.yml run www createuser
 ```
 
 ## Errata
@@ -63,6 +66,7 @@ To see logs, you can run:
 sudo docker-compose logs -f sentry
 sudo docker-compose logs -f sentry_celery_beat
 sudo docker-compose logs -f sentry_celery_worker
+...
 ```
 
 to see the logs of the varous sentry components.

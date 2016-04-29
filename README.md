@@ -36,7 +36,7 @@ sudo docker build --rm=true -t sentry_image ./
 First, lets bring up the stack via compose:
 
 ```
-docker-compose up
+docker-compose up -d
 ```
 
 After that, run SQL migrations to get the database up and running. This will also ask you to create a user; at this point, create one user that has admin privileges.

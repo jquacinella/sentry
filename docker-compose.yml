@@ -2,8 +2,8 @@ data:
   # image: tianon/true:latest (docker/fig#919)
   image: busybox:latest
   volumes:
-    - /data
-    - /var/lib/postgresql/data
+    - ./data/:/data
+    - ./db_data/:/var/lib/postgresql/data
   entrypoint: /bin/echo
 
 redis:
@@ -19,7 +19,8 @@ postgres:
   restart: always
 
 www:
-  build: .
+  # build: .
+  image: senrty_image
   ports:
     - "8080:8080"
   links:
@@ -35,3 +36,27 @@ www:
   env_file:
     - secrets/environment.sh
   # restart: always
+
+sentry_celery_beat:
+  # build: .
+  image: senrty_image
+  links:
+   - redis
+   - postgres
+  command: "sentry celery beat"
+  volumes:
+    - ./sentry.conf.py:/root/.sentry/sentry.conf.py
+    - ./config.yml:/root/.sentry/config.yml
+
+sentry_celery_worker:
+  # build: .
+  image: senrty_image
+  links:
+   - redis
+   - postgres
+  command: "sentry celery worker"
+  environment: 
+    - C_FORCE_ROOT=True
+  volumes:
+    - ./sentry.conf.py:/root/.sentry/sentry.conf.py
+    - ./config.yml:/root/.sentry/config.yml

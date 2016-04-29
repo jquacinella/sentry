@@ -7,7 +7,9 @@ RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive \
 #                      libpq-dev expect libldap2-dev libsasl2-dev libssl-dev
 
 # Install sentry for postgres and sentry slack integration
-RUN pip install -U sentry[postgres] sentry-slack
+# RUN pip install -U sentry[postgres] sentry-slack
+ADD requirements.txt /root/requirements.txt
+RUN pip install -r /root/requirements.txt
 
 # Expose the sentry web port
 EXPOSE 8080

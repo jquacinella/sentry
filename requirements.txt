@@ -1,0 +1,2 @@
+sentry[postgres]==8.3.3
+sentry-slack==0.5.0

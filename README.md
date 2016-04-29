@@ -14,8 +14,7 @@ This is a production ready setup of
 
 ## Configuration
 
-The `sentry.conf.py` and `config.yml` holds all the Sentry configurations. Your secret stuff,
-however, has to be put into an environment file called `environment.sh` in a `secrets/` folder (which is ignored by .gitignore). Mainly, you need
+The `sentry.conf.py` and `config.yml` holds all the Sentry configurations. Your secret stuff, however, has to be put into an environment file called `environment.sh` in a `secrets/` folder (which is ignored by .gitignore). Mainly, you need
 
 * SECRET_KEY
 
@@ -50,6 +49,10 @@ If you later want to add more users or didn't did it the first time around, run:
 ```
 docker-compose run www createuser
 ```
+
+## Errata
+
+The `requirements.txt` file in the repo determines which version of sentry and supporting packages are installed during the build of the image. If you need to upgrade or downgrade sentry, update the file as needed. As of this commit, sentry is installed at version 8.3.3.
 
 
 ## Troubleshooting

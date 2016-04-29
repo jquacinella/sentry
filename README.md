@@ -68,6 +68,7 @@ to see the logs of the varous sentry components.
 ## TODO
 
 * Dockerize the www container to wait for postgres db to be up and running
+* Deal with C_FORCE_ROOT=true, which is warned against
 
 ## [MIT Licensed](https://github.com/Turistforeningen/sentry/blob/master/LICENSE)
 

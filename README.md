@@ -22,6 +22,15 @@ however, has to be put into an environment file called `environment.sh` in a `se
 for sentry. Fill in email config knobs in config.yml, and update SENTRY_URL_PREFIX in `sentry.conf.py`.
 
 
+## Building
+
+The compose file relies on an image named `senrty_image`, and to build it, run:
+
+```
+sudo docker build --rm=true -t senrty_image ./
+```
+
+
 ## Installation
 
 First, lets bring up the stack via compose:

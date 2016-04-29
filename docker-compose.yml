@@ -1,62 +1,73 @@
-data:
-  # image: tianon/true:latest (docker/fig#919)
-  image: busybox:latest
-  volumes:
-    - ./data/:/data
-    - ./db_data/:/var/lib/postgresql/data
-  entrypoint: /bin/echo
+version: '2'
+services:
+  data:
+    # image: tianon/true:latest (docker/fig#919)
+    image: busybox:latest
+    volumes:
+      - ./data/:/data
+      - ./db_data/:/var/lib/postgresql/data
+    entrypoint: /bin/echo
 
-redis:
-  image: redis:2.8
-  volumes_from:
-    - data
-  restart: always
+  redis:
+    image: redis:2.8
+    volumes_from:
+      - data
+    restart: always
 
-postgres:
-  image: postgres:9.4
-  volumes_from:
-    - data
-  restart: always
+  postgres:
+    image: postgres:9.4
+    volumes_from:
+      - data
+    restart: always
 
-www:
-  # build: .
-  image: senrty_image
-  ports:
-    - "8080:8080"
-  links:
-    - postgres
-    - redis
-  volumes_from:
-    - data
-  volumes:
-    - ./sentry.conf.py:/root/.sentry/sentry.conf.py
-    - ./config.yml:/root/.sentry/config.yml
-  entrypoint: sentry
-  command: start --noinput
-  env_file:
-    - secrets/environment.sh
-  # restart: always
+  www:
+    # build: .
+    image: senrty_image
+    ports:
+      - "8080:8080"
+    links:
+      - postgres
+      - redis
+    volumes_from:
+      - data
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./sentry.conf.py:/root/.sentry/sentry.conf.py
+      - ./config.yml:/root/.sentry/config.yml
+    entrypoint: sentry
+    command: start --noinput
+    env_file:
+      - secrets/environment.sh
+    # restart: always
 
-sentry_celery_beat:
-  # build: .
-  image: senrty_image
-  links:
-   - redis
-   - postgres
-  command: "sentry celery beat"
-  volumes:
-    - ./sentry.conf.py:/root/.sentry/sentry.conf.py
-    - ./config.yml:/root/.sentry/config.yml
+  sentry_celery_beat:
+    # build: .
+    image: senrty_image
+    links:
+     - redis
+     - postgres
+    command: "sentry celery beat"
+    volumes:
+      - ./sentry.conf.py:/root/.sentry/sentry.conf.py
+      - ./config.yml:/root/.sentry/config.yml
+    depends_on:
+      - postgres
+      - redis
 
-sentry_celery_worker:
-  # build: .
-  image: senrty_image
-  links:
-   - redis
-   - postgres
-  command: "sentry celery worker"
-  environment: 
-    - C_FORCE_ROOT=True
-  volumes:
-    - ./sentry.conf.py:/root/.sentry/sentry.conf.py
-    - ./config.yml:/root/.sentry/config.yml
+  sentry_celery_worker:
+    # build: .
+    image: senrty_image
+    links:
+     - redis
+     - postgres
+    command: "sentry celery worker"
+    environment: 
+      - C_FORCE_ROOT=True
+    volumes:
+      - ./sentry.conf.py:/root/.sentry/sentry.conf.py
+      - ./config.yml:/root/.sentry/config.yml
+    depends_on:
+      - postgres
+      - redis

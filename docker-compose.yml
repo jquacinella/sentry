@@ -29,8 +29,6 @@ services:
     container_name: sentry
     hostname: sentry
     image: sentry_image
-    ports:
-      - "8080:8080"
     links:
       - postgres
       - redis

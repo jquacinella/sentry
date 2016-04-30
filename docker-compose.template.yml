@@ -18,6 +18,9 @@ services:
       - local
 
   sentry:
+    volumes:
+      - ./sentry.conf.py:/root/.sentry/sentry.conf.py
+      - ./config.yml:/root/.sentry/config.yml
     ports:
       - "8080:8080"
     networks:

@@ -37,9 +37,6 @@ services:
     depends_on:
       - postgres
       - redis
-    volumes:
-      - ./sentry.conf.py:/root/.sentry/sentry.conf.py
-      - ./config.yml:/root/.sentry/config.yml
     entrypoint: sentry
     command: start --noinput
     env_file:
